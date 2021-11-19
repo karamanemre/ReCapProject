@@ -4,7 +4,7 @@ using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using System;
 
-namespace ConsoleUII
+namespace ConsoleUI
 {
     class Program
     {
@@ -15,7 +15,7 @@ namespace ConsoleUII
             BrandManager brandManager = new BrandManager(new EfBrandDal());
 
             //carManager.Add(new Car {Id=3,BrandId=4,ColorId=3,DailyPrice=380,Description="Deneme",ModelYear="2018" });
-            brandManager.Add(new Brand { BrandId=2,BrandName="BMW"});
+            //brandManager.Add(new Brand { BrandId=3,BrandName="Audi"});
            
 
 
