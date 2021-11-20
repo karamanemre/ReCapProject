@@ -35,9 +35,9 @@ namespace Business.Concrete
            return _brandDal.GetAll();
         }
 
-        public List<Brand> GetById(int id)
+        public Brand GetById(int id)
         {
-            return _brandDal.GetAll(p=>p.BrandId==id);
+            return _brandDal.Get(p => p.BrandId == id);
         }
 
 

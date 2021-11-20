@@ -31,9 +31,9 @@ namespace Business.Concrete
             return _colorDal.GetAll();
         }
 
-        public List<Color> GetById(int id)
+        public Color GetById(int id)
         {
-            return _colorDal.GetAll(p => p.ColorId == id);
+            return _colorDal.Get(p => p.ColorId == id);
         }
 
         public void Uptade(Color color)
