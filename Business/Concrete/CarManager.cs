@@ -1,4 +1,7 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.DataResults;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -18,44 +21,48 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             if (car.DailyPrice<=0)
             {
                 Console.WriteLine("Araç Fiyatı 0'dan Küçük Olamaz");
-                return;
+                return new ErrorResult("Ekleme Başarısız"); 
             }
             _carDal.Add(car);
+            return new SuccessResult(Messages.Added);
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
             _carDal.Delete(car);
+            return new SuccessResult(Messages.Deleted);
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            return new SuccesDataResult<List<Car>>(_carDal.GetAll(),"Araçlar Listelendi");
         }
 
-        public List<CarDetailDto> GetCarDetails()
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return _carDal.GetCarDetails();
+
+            return new SuccesDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), "İşlem Başarılı");
         }
 
-        public List<Car> GetCarsByBrandId(int id)
+        public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
-            return _carDal.GetAll(p => p.BrandId == id).ToList();
+            return new SuccesDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == id).ToList(),"İşlem Başarılı");
         }
 
-        public List<Car> GetCarsByColorId(int id)
+        public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
-            return _carDal.GetAll(p => p.ColorId == id).ToList();
+            return new SuccesDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == id).ToList(), "Araç Getirildi");
         }
 
-        public void Uptade(Car car)
+        public IResult Uptade(Car car)
         {
             _carDal.Uptade(car);
+            return new SuccessResult(Messages.Uptaded); 
         }
     }
 }

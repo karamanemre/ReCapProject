@@ -1,4 +1,7 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.DataResults;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -14,36 +17,40 @@ namespace Business.Concrete
         {
             _brandDal = brandDal;
         }
-        public void Add(Brand brand)
+        public IResult Add(Brand brand)
         {
             if (brand.BrandName.Length<2)
             {
-                Console.WriteLine("Araç İsmi En Az 2 Haneli Olmalı");
-                return;
+                return new ErrorResult(Messages.BrandNameError);
             }
             
             _brandDal.Add(brand);
+            return new SuccessResult(Messages.Added);
         }
 
-        public void Delete(Brand brand)
+        public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
+            return new SuccessResult(Messages.Deleted);
         }
 
-        public List<Brand> GetAll()
+        public IDataResult<List<Brand>> GetAll()
         {
-           return _brandDal.GetAll();
+           return new SuccesDataResult<List<Brand>>(_brandDal.GetAll(), Messages.GetData);
         }
 
-        public Brand GetById(int id)
+        public IDataResult<Brand> GetById(int id)
         {
-            return _brandDal.Get(p => p.BrandId == id);
+            return new SuccesDataResult<Brand>(_brandDal.Get(p => p.BrandId == id), Messages.GetData);
         }
 
 
-        public void Uptade(Brand brand)
+        public IResult Uptade(Brand brand)
         {
             _brandDal.Uptade(brand);
+            return new SuccessResult(Messages.Uptaded);
         }
+
+        
     }
 }
