@@ -20,19 +20,19 @@ namespace Business.Concrete
         }
         public IResult Add(Rental rental)
         {
-            var result = _rentalDal.Get(p=>p.CustomerId==rental.CustomerId);
-            if (result.ReturnDate==null)
-            {
-                return new ErrorResult(Messages.IsCarDeliverVehicleFalse);
-                Console.WriteLine("olmaazz");
-            }
+            var result = _rentalDal.Get(p=>p.CustomerId==rental.CustomerId && p.ReturnDate == null);
 
-            if (rental.RentDate < DateTime.Today)
-            {
-                return new ErrorResult("Kiralama Tarihi Geriye Dönük Olamaz");
-            }
-
+            rental.RentDate = DateTime.Now;
             rental.ReturnDate = null;
+
+            //if (rental.RentDate == DateTime.Now)
+            //{
+            //    return new ErrorResult(Messages.IsCarDeliverVehicleFalse);
+            //}
+
+            Console.WriteLine(DateTime.Now);
+           
+            
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.Added);
         }
@@ -53,11 +53,16 @@ namespace Business.Concrete
 
         public IDataResult<List<Rental>> GetAll()
         {
+            if (DateTime.Now.Hour == 10)
+            {
+                return new ErrorDataResult<List<Rental>>("Sistem Bakımda");
+            }
             return new SuccesDataResult<List<Rental>>(_rentalDal.GetAll(),Messages.GetData);
         }
 
         public IDataResult<Rental> GetById(int id)
         {
+        
             return new SuccesDataResult<Rental>(_rentalDal.Get(p=>p.Id==id),Messages.GetData);
         }
 

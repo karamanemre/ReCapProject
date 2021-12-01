@@ -15,5 +15,15 @@ namespace Core.Utilities.DataResults
         {
 
         }
+
+        public SuccesDataResult(string message) : base(default, true, message)
+        {
+
+        }
+
+        public SuccesDataResult() : base(default, true)
+        {
+
+        }
     }
 }
