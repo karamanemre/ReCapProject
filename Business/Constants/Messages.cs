@@ -17,6 +17,8 @@ namespace Business.Constants
         public static string CarDeliverVehicle = "Araç teslim edildi";
         public static string IsCarDeliverVehicleFalse = "Yeni araç kiralamak içinönceki aracı teslim ediniz";
 
+        public static string TransactionSuccesfull = "İşlem Başarılı";
+        public static string TransactionNotSuccesfull = "İşlem Başarısız";
 
     }
 }

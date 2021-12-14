@@ -26,7 +26,7 @@ namespace Business.Concrete
             if (car.DailyPrice<=0)
             {
                 Console.WriteLine("Araç Fiyatı 0'dan Küçük Olamaz");
-                return new ErrorResult("Ekleme Başarısız"); 
+                return new ErrorResult(Messages.TransactionNotSuccesfull); 
             }
             _carDal.Add(car);
             return new SuccessResult(Messages.Added);
@@ -51,12 +51,12 @@ namespace Business.Concrete
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
 
-            return new SuccesDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), "İşlem Başarılı");
+            return new SuccesDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.TransactionSuccesfull);
         }
 
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
-            return new SuccesDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == id).ToList(),"İşlem Başarılı");
+            return new SuccesDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == id).ToList(),Messages.TransactionSuccesfull);
         }
 
         public IDataResult<List<Car>> GetCarsByColorId(int id)
